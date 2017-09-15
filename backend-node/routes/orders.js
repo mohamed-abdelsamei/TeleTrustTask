@@ -13,16 +13,29 @@ router.get('/getall', function (req, res, next) {
   });
 });
 
-router.post('/addorder',function(req,res,next){
-  var orderParams={
-    name:"mmmasss",
-    services:["59bb1fab3bf1de2a84570fae","59bb1fc45efc152aa9144d3c"]
+router.post('/addorder', function (req, res, next) {
+  var orderParams = {
+    name: "mmmasss",
+    services: ["59bb1fab3bf1de2a84570fae", "59bb1fc45efc152aa9144d3c"]
   };
-  Order.create(orderParams,function(err,order){
+  Order.create(orderParams, function (err, order) {
     if (err) console.log(err);
     res.json({
       success: true,
       order: order
+    });
+  });
+});
+
+router.get('/getOrder/:id', function (req, res, next) {
+  console.log(req.params)
+  Order.findOne({
+    _id: req.params.id
+  }).populate('services').exec(function (err, order) {
+    if (err) console.log(err);
+    res.json({
+      success: true,
+      account: order
     });
   });
 });
