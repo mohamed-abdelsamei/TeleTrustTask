@@ -4,8 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+
 import { AccountsPage } from './../pages/accounts/accounts';
 import { AccountDetailsPage } from './../pages/account-details/account-details';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -15,8 +14,6 @@ import { RemoteServiceProvider } from '../providers/remote-service/remote-servic
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    ListPage,
     AccountsPage,
     AccountDetailsPage
   ],
@@ -28,8 +25,6 @@ import { RemoteServiceProvider } from '../providers/remote-service/remote-servic
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    ListPage,
     AccountsPage,
     AccountDetailsPage
 

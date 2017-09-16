@@ -28,6 +28,8 @@ frontend-ionic/plugins/
 frontend-ionic/plugins/android.json
 frontend-ionic/plugins/ios.json
 frontend-ionic/www/
+backend-node/node_modules/
+
 $RECYCLE.BIN/
 
 .DS_Store

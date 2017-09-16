@@ -138,4 +138,17 @@ export class AccountsPage {
       number: account.number
     });
   }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      for (let i = 0; i < 30; i++) {
+        console.log(i);
+      }
+
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
+  }
 }
