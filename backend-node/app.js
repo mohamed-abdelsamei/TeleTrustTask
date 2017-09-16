@@ -11,8 +11,10 @@ var users = require('./routes/users');
 var account = require('./routes/account');
 
 var app = express();
-
-mongoose.connect('mongodb://asd123:asd123@ds137464.mlab.com:37464/teletrust');
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://asd123:asd123@ds137464.mlab.com:37464/teletrust', {
+  useMongoClient: true
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
