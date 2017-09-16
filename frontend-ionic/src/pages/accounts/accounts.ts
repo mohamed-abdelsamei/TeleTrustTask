@@ -57,8 +57,6 @@ export class AccountsPage {
     })
   }
 
-
-
   filterItems(ev: any) {
 
     // set val to the value of the searchbar
@@ -126,13 +124,11 @@ export class AccountsPage {
       return haystack;
     }
     return (haystack + '').replace(new RegExp(searchP, "gi"), function (match) {
-      console.log(match)
       return '<span class="highlightedText">' + match + '</span>';
     });
   };
 
   viewAccount(account: any) {
-    console.log(account);
     this.navCtrl.push(AccountDetailsPage, {
       id: account._id,
       number: account.number
@@ -140,15 +136,10 @@ export class AccountsPage {
   }
 
   doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
     setTimeout(() => {
       this.page = this.page + 1;
-      console.log(this.page)
       this.loadAccounts(this.myfilter, this.page);
-      console.log('Async operation has ended');
       infiniteScroll.complete();
-
-
     }, 500);
   }
 }
