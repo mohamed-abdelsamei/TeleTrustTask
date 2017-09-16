@@ -1,0 +1,85 @@
+<!--
+  Generated template for the AccountsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="purble">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-2>
+          <button ion-button menuToggle>
+                    <ion-icon name="menu"></ion-icon>
+                  </button>
+        </ion-col>
+        <ion-col col-8>
+          <ion-title text-center>accounts</ion-title>
+
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button class="custom-btn white">  <ion-icon ios="ios-sync" md="md-sync"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+    <ion-searchbar [(ngModel)]="myFilter" (ionInput)="filterItems($event)"></ion-searchbar>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div text-center *ngIf="searching" class="spinner-container">
+    <ion-spinner></ion-spinner>
+  </div>
+  <ion-list>
+    <ion-item no-padding *ngFor="let account of accounts">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-2 padding-vertical>
+            <div class="checkbox">
+              <input type="checkbox" [(ngModel)]="account.checked" (click)="checkAccount(account)">
+              <label cfor="checkbox1"></label>
+            </div>
+          </ion-col>
+
+          <ion-col col-10 button (click)="viewAccount(account)">
+
+            <h2 [innerHTML]="highlight(account.number, myFilter)">
+            </h2>
+            <ion-grid no-padding>
+              <ion-row justify-content-start>
+                <ion-col col-6>
+                  <p>
+                    Total Services : {{account.services.length}}
+                  </p>
+                </ion-col>
+                <ion-col col-6>
+                  <p >
+                    Total Bill : {{getBill(account)| currency:'SAR':true:'1.2-2'}}
+                  </p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar no-padding>
+    <ion-label float-right>
+      TOTAL :  {{getTotal()|currency:'SAR':true:'1.2-2'}}
+    </ion-label>
+    <button float-left class="custom-btn" *ngIf="selectedAccounts.length > 0" ion-button (click)="clear()">UnSelect All</button>
+    <button float-left class="custom-btn" *ngIf="selectedAccounts.length == 0" ion-button (click)="checkAll()">Select All</button>
+
+    <button ion-button (click)="Pay()" large full color="purble" [disabled]="getTotal()<=0">Pay</button>
+  </ion-toolbar>
+</ion-footer>
