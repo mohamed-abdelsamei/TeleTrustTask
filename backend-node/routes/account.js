@@ -6,7 +6,7 @@ var Service = require('../models/service');
 /* GET users listing. */
 router.get('/getall', function (req, res, next) {
   var sp = req.query.search || '';
-  var resultsPerPage = 20; //req.query.resultsPerPage || 5;
+  var resultsPerPage = 20; 
   var page = req.query.page || 1;
   var accs = Account.find({
     "number": {
