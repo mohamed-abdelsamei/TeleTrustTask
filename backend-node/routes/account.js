@@ -1,41 +1,43 @@
 var express = require('express');
 var router = express.Router();
-var Order = require('../models/order');
+var Account = require('../models/account');
 var Service = require('../models/service');
+
 /* GET users listing. */
 router.get('/getall', function (req, res, next) {
-  Order.find().populate('services').exec(function (err, orders) {
+  var sp = req.query.search;
+  Account.find({ "number" : {$regex : ".*"+sp+".*"}} ).populate('services').exec(function (err, accounts) {
     if (err) console.log(err);
     res.json({
       success: true,
-      orders: orders
+      accounts: accounts
     });
   });
 });
 
-router.post('/addorder', function (req, res, next) {
+router.post('/addAccount', function (req, res, next) {
   var orderParams = {
     name: "mmmasss",
     services: ["59bb1fab3bf1de2a84570fae", "59bb1fc45efc152aa9144d3c"]
   };
-  Order.create(orderParams, function (err, order) {
+  Account.create(orderParams, function (err, account) {
     if (err) console.log(err);
     res.json({
       success: true,
-      order: order
+      account: account
     });
   });
 });
 
-router.get('/getOrder/:id', function (req, res, next) {
+router.get('/getAccount/:id', function (req, res, next) {
   console.log(req.params)
-  Order.findOne({
+  Account.findOne({
     _id: req.params.id
-  }).populate('services').exec(function (err, order) {
+  }).populate('services').exec(function (err, account) {
     if (err) console.log(err);
     res.json({
       success: true,
-      account: order
+      account: account
     });
   });
 });
