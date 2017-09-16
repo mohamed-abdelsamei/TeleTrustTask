@@ -5,15 +5,26 @@ var Service = require('../models/service');
 
 /* GET users listing. */
 router.get('/getall', function (req, res, next) {
-  var sp = req.query.search;
-  Account.find({ "number" : {$regex : ".*"+sp+".*"}} ).populate('services').exec(function (err, accounts) {
+  var sp = req.query.search || '';
+  var resultsPerPage = 20; //req.query.resultsPerPage || 5;
+  var page = req.query.page || 1;
+  console.log("--" + sp)
+  var accs = Account.find({
+    "number": {
+      $regex: ".*" + sp + ".*"
+    }
+  }).limit(parseInt(resultsPerPage)).skip(parseInt(page)*20).populate('services').exec(function (err, accounts) {
     if (err) console.log(err);
+    console.log(accounts.length);
     res.json({
       success: true,
       accounts: accounts
     });
   });
 });
+
+// 
+// .skip(parseInt(page) * parseInt(resultsPerPage))
 
 router.post('/addAccount', function (req, res, next) {
   var orderParams = {

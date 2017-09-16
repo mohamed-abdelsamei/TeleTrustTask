@@ -16,8 +16,8 @@ export class RemoteServiceProvider {
     console.log('Hello RemoteServiceProvider Provider');
   }
 
-  getAllAccounts(q: any) {
-    return this.http.get(this.apiUrl + 'account/getAll?search=' + q).map(res => res.json());
+  getAllAccounts(q: any, p: any) {
+    return this.http.get(this.apiUrl + 'account/getAll?search=' + q + '&page=' + p).map(res => res.json());
   }
 
   getAccount(oID: any) {

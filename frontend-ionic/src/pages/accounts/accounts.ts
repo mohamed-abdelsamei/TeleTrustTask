@@ -28,14 +28,15 @@ import 'rxjs/add/operator/map';
   templateUrl: 'accounts.html',
 })
 export class AccountsPage {
-  myfilter: String = '';
+  myfilter: string = '';
   accounts: any = [];
   searching: any = false;
   selectedAccounts: any = [];
-  accChecked: Boolean;
+  accChecked: boolean;
   totalPrice: any = 0;
+  page: number = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams, private remoteServiceProvider: RemoteServiceProvider) {
-    this.loadAccounts(this.myfilter);
+    this.loadAccounts(this.myfilter, this.page);
   }
 
   ionViewDidLoad() {
@@ -43,10 +44,15 @@ export class AccountsPage {
 
   }
 
-  loadAccounts(q: String) {
+  loadAccounts(q: string, p: number) {
     this.searching = true;
-    this.remoteServiceProvider.getAllAccounts(q).subscribe(accounts => {
-      this.accounts = accounts.accounts;
+    this.remoteServiceProvider.getAllAccounts(q, p).subscribe(accounts => {
+      if (accounts.accounts.length == 0) {
+        console.log("no data retreived");
+      }
+      accounts.accounts.forEach(element => {
+        this.accounts.push(element);
+      });
       this.searching = false;
     })
   }
@@ -57,17 +63,10 @@ export class AccountsPage {
 
     // set val to the value of the searchbar
     let val = ev.target.value;
-    this.loadAccounts(val);
-
-    console.log(val)
-    // if the value is an empty string don't filter the items
-    if (val) {
-      this.accounts = this.accounts.filter((account) => {
-        return ((account.number + '').toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    } else {
-      this.loadAccounts(val);
-    }
+    this.page = 0;
+    this.myfilter = ev.target.value;
+    this.accounts = [];
+    this.loadAccounts(val, this.page);
 
   }
 
@@ -92,6 +91,7 @@ export class AccountsPage {
     this.selectedAccounts = [];
     console.log(this.selectedAccounts);
   }
+
   checkAll() {
     this.accChecked = true;
     this.selectedAccounts = [];
@@ -141,14 +141,14 @@ export class AccountsPage {
 
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
-
     setTimeout(() => {
-      for (let i = 0; i < 30; i++) {
-        console.log(i);
-      }
-
+      this.page = this.page + 1;
+      console.log(this.page)
+      this.loadAccounts(this.myfilter, this.page);
       console.log('Async operation has ended');
       infiniteScroll.complete();
+
+
     }, 500);
   }
 }
