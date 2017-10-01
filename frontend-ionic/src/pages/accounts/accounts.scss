@@ -1,5 +1,15 @@
 page-accounts {}
 
+[col-10] {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 83.33333%;
+  -ms-flex: 0 0 83.33333%;
+  flex: 0 0 83.33333%;
+  width: 83.33333%;
+  max-width: 83.33333%;
+  border-left: 1px solid #dedede;
+}
+
 .highlightedText {
   color: red;
 }
