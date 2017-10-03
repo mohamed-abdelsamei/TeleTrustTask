@@ -1,3 +1,4 @@
+import { RemoteServiceProvider } from './providers/remote-service/remote-service';
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
 import 'zone.js/dist/long-stack-trace-zone';
@@ -54,7 +55,7 @@ export class TestUtils {
         ...components,
       ],
       providers: [
-        App, Form, Keyboard, DomController, MenuController, NavController,
+        App, Form, Keyboard, DomController, MenuController, NavController, RemoteServiceProvider,
         { provide: Platform, useFactory: () => PlatformMock.instance() },
         { provide: Config, useFactory: () => ConfigMock.instance() },
       ],
@@ -62,6 +63,7 @@ export class TestUtils {
         FormsModule,
         IonicModule,
         ReactiveFormsModule,
+        RemoteServiceProvider
       ],
     });
   }
